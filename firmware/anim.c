@@ -47,6 +47,10 @@ uint8_t last_score_mode = 0;
 uint32_t rval[2]={0,0};
 uint32_t key[4];
 
+/* forward decl. */
+static void draw_score(uint8_t redraw_digits, uint8_t inverted);
+void drawbigfont(uint8_t x, uint8_t y, uint8_t n, uint8_t inverted);
+
 void encipher(void) {  // Using 32 rounds of XTea encryption as a PRNG.
   unsigned int i;
   uint32_t v0=rval[0], v1=rval[1], sum=0, delta=0x9E3779B9;
@@ -109,7 +113,7 @@ uint16_t crand(uint8_t type) {
     return (rval[0]^rval[1])&RAND_MAX;
   } else if (type==1) {
   	return ((rval[0]^rval[1])>>15)&3;
-  } else if (type==2) {
+  } else {
   	return ((rval[0]^rval[1])>>17)&1;
   }
 }
@@ -709,7 +713,7 @@ uint8_t dotw(uint8_t mon, uint8_t day, uint8_t yr)
     return (day + (2 * month) + (6 * (month+1)/10) + year + (year/4) - (year/100) + (year/400) + 1) % 7;
 }
 
-void draw_score(uint8_t redraw_digits, uint8_t inverted) {
+static void draw_score(uint8_t redraw_digits, uint8_t inverted) {
 	static uint8_t prev_mode;
 	if(score_mode==SCORE_MODE_DOW) {
 		if(prev_mode != SCORE_MODE_DOW)

@@ -31,6 +31,10 @@ volatile uint8_t timeoutcounter = 0;
 
 volatile uint8_t screenmutex = 0;
 
+/* forward decl. */
+static void print_date(uint8_t month, uint8_t day, uint8_t year, uint8_t mode);
+static void print_region_setting(uint8_t inverted);
+
 void display_menu(void) {
   DEBUGP("display menu");
   
@@ -149,7 +153,7 @@ void print_dow(uint8_t inverted, uint8_t mon, uint8_t day, uint8_t yr) {
   }
 }
 
-void print_date(uint8_t month, uint8_t day, uint8_t year, uint8_t mode) {
+static void print_date(uint8_t month, uint8_t day, uint8_t year, uint8_t mode) {
   glcdSetAddress(MENU_INDENT, 3);
   glcdPutStr("Date:", NORMAL);
   if (region == REGION_US) {
@@ -441,7 +445,7 @@ void set_backlight(void) {
 }
 #endif
 
-void print_region_setting(uint8_t inverted) {
+static void print_region_setting(uint8_t inverted) {
   glcdSetAddress(MENU_INDENT, 4);
   glcdPutStr("Region: ", NORMAL);
   if ((region == REGION_US) && (time_format == TIME_12H)) {

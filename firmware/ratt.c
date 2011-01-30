@@ -19,22 +19,19 @@
 #include "ks0108.h"
 #include "glcd.h"
 
-
 volatile uint8_t time_s, time_m, time_h;
+volatile uint8_t alarming, alarm_on, alarm_tripped, alarm_h, alarm_m;
+volatile uint8_t minute_changed = 0, hour_changed = 0;
 volatile uint8_t old_h, old_m;
+volatile uint8_t region;
 volatile uint8_t timeunknown = 1;
 volatile uint8_t date_m, date_d, date_y;
-volatile uint8_t alarming, alarm_on, alarm_tripped, alarm_h, alarm_m;
 volatile uint8_t displaymode;
-volatile uint8_t volume;
-volatile uint8_t sleepmode = 0;
-volatile uint8_t region;
 volatile uint8_t time_format;
-extern volatile uint8_t screenmutex;
-volatile uint8_t minute_changed = 0, hour_changed = 0;
 volatile uint8_t score_mode_timeout = 0;
 volatile uint8_t score_mode = SCORE_MODE_TIME;
 volatile uint8_t last_score_mode;
+extern volatile uint8_t screenmutex;
 
 // These store the current button states for all 3 buttons. We can 
 // then query whether the buttons are pressed and released or pressed

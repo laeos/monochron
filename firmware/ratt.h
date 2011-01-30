@@ -205,7 +205,7 @@ void drawmidline(uint8_t inverted);
 
 float random_angle_rads(void);
 
-void init_crand();
+void init_crand(void);
 uint8_t dotw(uint8_t mon, uint8_t day, uint8_t yr);
 
 uint8_t i2bcd(uint8_t x);
