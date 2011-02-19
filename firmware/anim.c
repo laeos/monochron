@@ -21,6 +21,8 @@
 #include "glcd.h"
 #include "font5x7.h"
 
+#ifdef MONOCHRON
+
 extern volatile uint8_t time_s, time_m, time_h;
 extern volatile uint8_t old_m, old_h;
 extern volatile uint8_t date_m, date_d, date_y;
@@ -698,21 +700,6 @@ static unsigned char __attribute__ ((progmem)) DOWText[] = {
 	'S','A','T',
 };
 
-uint8_t dotw(uint8_t mon, uint8_t day, uint8_t yr)
-{
-  uint16_t month, year;
-
-    // Calculate day of the week
-    
-    month = mon;
-    year = 2000 + yr;
-    if (mon < 3)  {
-      month += 12;
-      year -= 1;
-    }
-    return (day + (2 * month) + (6 * (month+1)/10) + year + (year/4) - (year/100) + (year/400) + 1) % 7;
-}
-
 static void draw_score(uint8_t redraw_digits, uint8_t inverted) {
 	static uint8_t prev_mode;
 	if(score_mode==SCORE_MODE_DOW) {
@@ -944,4 +931,4 @@ uint8_t calculate_keepout(float theball_x, float theball_y, float theball_dx, fl
 
   return tix;
 }
-      
+#endif

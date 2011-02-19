@@ -8,13 +8,16 @@ FORMAT = ihex
 # Target file name (without extension).
 TARGET = monochron
 
+# VARIANT = MONOCHRON
+VARIANT = AGECLOCK
+
 # Optimization level, can be [0, 1, 2, 3, s]. 0 turns off optimization.
 # (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
 
 # List C source files here. (C dependencies are automatically generated.)
 
-SRC = ratt.c config.c buttons.c anim.c util.c glcd.c ks0108.c i2c.c
+SRC = ratt.c config.c buttons.c anim.c util.c glcd.c ks0108.c i2c.c ageclock.c
 
 # List Assembler source files here.
 # Make them always end in a capital .S.  Files ending in a lowercase .s
@@ -156,7 +159,7 @@ dummy:=$(shell [ -d .output ] || mkdir .output)
 
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
-ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS)
+ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS) -D$(VARIANT)
 ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 

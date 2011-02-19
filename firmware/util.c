@@ -156,3 +156,19 @@ void uart_putdw_dec(uint32_t dw)
       num /= 10;
     }
 }
+
+uint8_t dotw(uint8_t mon, uint8_t day, uint8_t yr)
+{
+  uint16_t month, year;
+
+    // Calculate day of the week
+    
+    month = mon;
+    year = 2000 + yr;
+    if (mon < 3)  {
+      month += 12;
+      year -= 1;
+    }
+    return (day + (2 * month) + (6 * (month+1)/10) + year + (year/4) - (year/100) + (year/400) + 1) % 7;
+}
+
