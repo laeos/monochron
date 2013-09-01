@@ -74,7 +74,7 @@ void i2cInit(void)
 
 void i2cSetBitrate(u16 bitrate)
 {
-	u08 bitrate_div;
+	//u08 bitrate_div;
 	// set i2c bitrate
 	// SCL freq = F_CPU/(16+2*TWBR))
 	/*
@@ -88,7 +88,7 @@ void i2cSetBitrate(u16 bitrate)
 	*/
 
 	// calculate bitrate division	
-	bitrate_div = (F_CPU/32)/bitrate;
+	//bitrate_div = (F_CPU/32)/bitrate;
 	//outb(TWBR, bitrate_div);
 	TWBR = 32;
 }

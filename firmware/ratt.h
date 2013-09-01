@@ -193,7 +193,6 @@ void print_alarmhour(uint8_t h, uint8_t inverted);
 void display_menu(void);
 void drawArrow(uint8_t x, uint8_t y, uint8_t l);
 void setalarmstate(void);
-void beep(uint16_t freq, uint8_t duration);
 void printnumber(uint8_t n, uint8_t inverted);
 uint8_t intersectrect(uint8_t x1, uint8_t y1, uint8_t w1, uint8_t h1,
 					  uint8_t x2, uint8_t y2, uint8_t w2, uint8_t h2);

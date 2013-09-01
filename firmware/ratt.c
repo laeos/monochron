@@ -87,13 +87,23 @@ void init_eeprom(void) {	//Set eeprom to a default state.
   }
 }
 
+static inline void beep(uint16_t freq, uint8_t duration) {
+  // use timer 1 for the piezo/buzzer 
+  TCCR1A = 0; 
+  TCCR1B =  _BV(WGM12) | _BV(CS10); // CTC with fastest timer
+  TIMSK1 = _BV(TOIE1) | _BV(OCIE1A);
+  OCR1A = (F_CPU / freq) / 2;
+  _delay_ms(duration);
+  TCCR1B = 0;
+  // turn off piezo
+  PIEZO_PORT &= ~_BV(PIEZO);
+}
+
 int main(void) {
   uint8_t inverted = 0;
-  uint8_t mcustate;
   uint8_t display_date = 0;
 
   // check if we were reset
-  mcustate = MCUSR;
   MCUSR = 0;
   
   //Just in case we were reset inside of the glcd init function
@@ -310,18 +320,6 @@ int main(void) {
 
 SIGNAL(TIMER1_COMPA_vect) {
   PIEZO_PORT ^= _BV(PIEZO);
-}
-
-void beep(uint16_t freq, uint8_t duration) {
-  // use timer 1 for the piezo/buzzer 
-  TCCR1A = 0; 
-  TCCR1B =  _BV(WGM12) | _BV(CS10); // CTC with fastest timer
-  TIMSK1 = _BV(TOIE1) | _BV(OCIE1A);
-  OCR1A = (F_CPU / freq) / 2;
-  _delay_ms(duration);
-  TCCR1B = 0;
-  // turn off piezo
-  PIEZO_PORT &= ~_BV(PIEZO);
 }
 
 // This turns on/off the alarm when the switch has been
